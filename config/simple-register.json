@@ -1,0 +1,8 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/simple-register-module/^7.0.0/components/context.jsonld",
+  "import": [
+    "simple-register:config/identity/interaction/routing/password/create-login.json",
+    "simple-register:config/identity/interaction/routing/password/prompt.json"
+  ]
+
+}

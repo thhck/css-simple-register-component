@@ -1,0 +1,10 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@solid/community-server/^7.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/simple-register-module/^7.0.0/components/context.jsonld"
+  ],
+  "import": [
+    "simple-register:config/simple-register.json"
+  ],
+  "@graph": []
+}

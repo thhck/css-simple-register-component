@@ -1,0 +1,67 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@solid/community-server/^7.0.0/components/context.jsonld",
+   "https://linkedsoftwaredependencies.org/bundles/npm/simple-register-module/^7.0.0/components/context.jsonld"
+  ],
+  "@graph": [
+    {
+      "comment": "Handles the password login interaction for the create prompt",
+      "@id": "urn:my-simple-register:default:CreateLoginPasswordRouter",
+      "@type": "InteractionRouteHandler",
+      "route": {
+        "@id": "urn:my-simple-register:default:CreateLoginPasswordRoute",
+        "@type": "RelativePathInteractionRoute",
+        "base": { "@id": "urn:solid-server:default:LoginRoute" },
+        "relativePath": "create/"
+      },
+      "source": {
+        "@type": "ViewInteractionHandler",
+        "source": {
+          "@id": "urn:my-simple-register:default:CreatePasswordLoginHandler",
+          "@type": "CreatePasswordLoginHandler",
+          "createAccountHandler": { "@id": "urn:solid-server:default:CreateAccountHandler" },
+          "createPodHandler": { "@id": "urn:solid-server:default:CreatePodHandler" },
+          "accountStore": { "@id": "urn:solid-server:default:AccountStore" },
+          "passwordStore": { "@id": "urn:solid-server:default:PasswordStore" },          
+          "passwordRoute": { "@id": "urn:solid-server:default:AccountPasswordIdRoute" }
+        }
+      }
+    },
+
+    {
+      "@id": "urn:solid-server:default:InteractionRouteHandler",
+      "@type": "WaterfallHandler",
+      "handlers": [{ "@id": "urn:my-simple-register:default:CreateLoginPasswordRouter" }]
+    },
+
+    {
+      "@id": "urn:solid-server:default:PasswordControlHandler",
+      "@type": "ControlHandler",
+      "controls": [{
+          "ControlHandler:_controls_key": "create-login-ii",
+          "ControlHandler:_controls_value": { "@id": "urn:my-simple-register:default:CreateLoginPasswordRoute" }
+      }]
+    },
+
+    {
+      "@id": "urn:solid-server:default:HtmlViewHandler",
+      "@type": "HtmlViewHandler",
+      "templates": [{
+        "@id": "urn:my-simple-register:default:CreateLoginPasswordHtml",
+        "@type": "HtmlViewEntry",
+        "filePath": "./templates/identity/password/create-login.html.ejs",
+        "route": { "@id": "urn:my-simple-register:default:CreateLoginPasswordRoute" }
+      }]
+    },
+    {
+      "ControlHandler:_controls_value": {
+        "@id": "urn:solid-server:default:PasswordHtmlControlHandler",
+        "@type": "ControlHandler",
+        "controls": [{
+          "ControlHandler:_controls_key": "create-login-ii",
+          "ControlHandler:_controls_value": { "@id": "urn:my-simple-register:default:CreateLoginPasswordRoute" }
+        }]
+      }
+    }
+  ]
+}
