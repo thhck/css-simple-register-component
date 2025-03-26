@@ -15,6 +15,10 @@ import {
   PasswordStore,
   PasswordIdRoute,
   assertAccountId,
+  ResolveLoginHandler,
+  CookieStore,
+  EmptyObject,
+  LoginOutputType,
 } from '@solid/community-server';
 
 interface InputData {
@@ -37,41 +41,36 @@ export interface CreatePasswordLoginHandlerArgs {
   accountStore: AccountStore;
   passwordStore: PasswordStore;
   passwordRoute: PasswordIdRoute;
+  cookieStore: CookieStore;
 }
 
-/**
- * Handles the creation of a new account and pod with the provided credentials.
- * Can be used both with and without OIDC interactions.
- */
-export class CreatePasswordLoginHandler extends JsonInteractionHandler implements JsonView {
-  protected readonly logger = getLoggerFor(this);
-
+type OutType = {
+  resource: string;
+}
+export class CreatePasswordLoginHandler extends ResolveLoginHandler implements JsonView {
   private readonly createAccountHandler: CreateAccountHandler;
   private readonly createPodHandler: CreatePodHandler;
-  private readonly accountStore: AccountStore;
+  // private readonly accountStore: AccountStore;
   private readonly passwordStore: PasswordStore;
   private readonly passwordRoute: PasswordIdRoute;
   public constructor(args: CreatePasswordLoginHandlerArgs) {
-    super();
+    super(args.accountStore, args.cookieStore);
     this.createAccountHandler = args.createAccountHandler;
     this.createPodHandler = args.createPodHandler;
-    this.accountStore = args.accountStore;
+    // this.accountStore = args.accountStore;
     this.passwordStore = args.passwordStore;
     this.passwordRoute = args.passwordRoute;
   }
 
-  public async getView(): Promise<JsonRepresentation> {
-    return { json: parseSchema(inSchema) };
+  public async getView(): Promise<JsonRepresentation<EmptyObject>> {
+    return { json: {}};
   }
 
-  public async handle({ json }: JsonInteractionHandlerInput): Promise<JsonRepresentation> {
+  public async login({json}: JsonInteractionHandlerInput): Promise<JsonRepresentation<LoginOutputType>> {
+    const accountId = await this.accountStore.create();
+ // const accountId = await this.accountStore.create();
+
     const validatedData = await validateWithError(inSchema, json) as InputData;
-
-  const accountId = await this.accountStore.create();
-    // assertAccountId(accountId);
-    // Create new account
-    // const accountId = await this.accountStore.create();
-
     // Create password login for the account
 
     const { email, password } = await validateWithError(inSchema, json);
@@ -91,18 +90,9 @@ export class CreatePasswordLoginHandler extends JsonInteractionHandler implement
     } as JsonInteractionHandlerInput);
 
     // TODO: Need to get the account URL from the server
-    const accountUrl = `/accounts/${accountId}`;
+    const accountUrl = `http://localhost:3000/.account/account/${accountId}`;
 
 
-
-    // If not an OIDC interaction, return the account URL and info
-    return {
-      json: {
-        location: accountUrl,
-        accountId,
-        accountUrl,
-        pod: podResponse.json.pod,
-      },
-    };
+    return { json: { accountId }};
   }
 }

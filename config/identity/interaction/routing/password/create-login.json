@@ -22,6 +22,7 @@
           "createAccountHandler": { "@id": "urn:solid-server:default:CreateAccountHandler" },
           "createPodHandler": { "@id": "urn:solid-server:default:CreatePodHandler" },
           "accountStore": { "@id": "urn:solid-server:default:AccountStore" },
+          "cookieStore": { "@id": "urn:solid-server:default:CookieStore" },
           "passwordStore": { "@id": "urn:solid-server:default:PasswordStore" },          
           "passwordRoute": { "@id": "urn:solid-server:default:AccountPasswordIdRoute" }
         }
