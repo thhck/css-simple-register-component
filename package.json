@@ -1,22 +1,22 @@
 {
-  "name": "simple-register-module",
+  "name": "css-simple-register-component",
   "version": "7.0.0",
   "description": "A minimal example of a repository containing an injectable Community Solid Server module",
-  "repository": "git@github.com:CommunitySolidServer/simple-register-module.git",
+  "repository": "git@github.com:CommunitySolidServer/css-simple-register-component.git",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "lsd:module": "https://linkedsoftwaredependencies.org/bundles/npm/simple-register-module",
+  "lsd:module": "https://linkedsoftwaredependencies.org/bundles/npm/css-simple-register-component",
   "lsd:components": "dist/components/components.jsonld",
   "lsd:contexts": {
-    "https://linkedsoftwaredependencies.org/bundles/npm/simple-register-module/^7.0.0/components/context.jsonld": "dist/components/context.jsonld"
+    "https://linkedsoftwaredependencies.org/bundles/npm/css-simple-register-component/^7.0.0/components/context.jsonld": "dist/components/context.jsonld"
   },
   "lsd:importPaths": {
-    "https://linkedsoftwaredependencies.org/bundles/npm/simple-register-module/^7.0.0/components/": "dist/components/",
-    "https://linkedsoftwaredependencies.org/bundles/npm/simple-register-module/^7.0.0/config/": "config/",
-    "https://linkedsoftwaredependencies.org/bundles/npm/simple-register-module/^7.0.0/dist/": "dist/"
+    "https://linkedsoftwaredependencies.org/bundles/npm/css-simple-register-component/^7.0.0/components/": "dist/components/",
+    "https://linkedsoftwaredependencies.org/bundles/npm/css-simple-register-component/^7.0.0/config/": "config/",
+    "https://linkedsoftwaredependencies.org/bundles/npm/css-simple-register-component/^7.0.0/dist/": "dist/"
   },
   "scripts": {
-    "start": "community-solid-server -c @css:config/file.json simple-register-partial.json -f .data -m .",
+    "start": "community-solid-server -c @css:config/default.json simple-register-partial.json  -m .",
     "start-alt": "community-solid-server -c simple-register-file.json -f .data -m .",
     "build": "npm run build:ts && npm run build:components",
     "build:components": "componentsjs-generator -s src -c dist/components -i .componentsignore -r simple-register",
@@ -29,7 +29,7 @@
     "config"
   ],
   "dependencies": {
-    "@solid/community-server": "^7.0.3"
+    "@solid/community-server": "^7.1.6"
   },
   "devDependencies": {
     "@tsconfig/node18": "^18.2.2",

@@ -1,7 +1,7 @@
 {
   "@context": [
     "https://linkedsoftwaredependencies.org/bundles/npm/@solid/community-server/^7.0.0/components/context.jsonld",
-   "https://linkedsoftwaredependencies.org/bundles/npm/simple-register-module/^7.0.0/components/context.jsonld"
+    "https://linkedsoftwaredependencies.org/bundles/npm/css-simple-register-component/^7.0.0/components/context.jsonld"
   ],
   "@graph": [
     {
@@ -11,58 +11,86 @@
       "route": {
         "@id": "urn:my-simple-register:default:CreateLoginPasswordRoute",
         "@type": "RelativePathInteractionRoute",
-        "base": { "@id": "urn:solid-server:default:LoginRoute" },
-        "relativePath": "create/"
+        "base": {
+          "@id": "urn:solid-server:default:LoginPasswordRoute"
+        },
+        "relativePath": "register-with-pod/"
       },
       "source": {
         "@type": "ViewInteractionHandler",
         "source": {
           "@id": "urn:my-simple-register:default:CreatePasswordLoginHandler",
           "@type": "CreatePasswordLoginHandler",
-          "createAccountHandler": { "@id": "urn:solid-server:default:CreateAccountHandler" },
-          "createPodHandler": { "@id": "urn:solid-server:default:CreatePodHandler" },
-          "accountStore": { "@id": "urn:solid-server:default:AccountStore" },
-          "cookieStore": { "@id": "urn:solid-server:default:CookieStore" },
-          "passwordStore": { "@id": "urn:solid-server:default:PasswordStore" },          
-          "passwordRoute": { "@id": "urn:solid-server:default:AccountPasswordIdRoute" }
+          "accountStore": {
+            "@id": "urn:solid-server:default:AccountStore"
+          },
+          "cookieStore": {
+            "@id": "urn:solid-server:default:CookieStore"
+          },
+          "passwordStore": {
+            "@id": "urn:solid-server:default:PasswordStore"
+          },
+          "passwordRoute": {
+            "@id": "urn:solid-server:default:AccountPasswordIdRoute"
+          },
+          "podCreator": {
+            "@id": "urn:solid-server:default:PodCreator"
+          },
+          "podStore": {
+            "@id": "urn:solid-server:default:PodStore"
+          },
+          "identifierGenerator": {
+            "@id": "urn:solid-server:default:IdentifierGenerator"
+          }
         }
       }
     },
-
     {
       "@id": "urn:solid-server:default:InteractionRouteHandler",
       "@type": "WaterfallHandler",
-      "handlers": [{ "@id": "urn:my-simple-register:default:CreateLoginPasswordRouter" }]
+      "handlers": [
+        {
+          "@id": "urn:my-simple-register:default:CreateLoginPasswordRouter"
+        }
+      ]
     },
-
     {
       "@id": "urn:solid-server:default:PasswordControlHandler",
       "@type": "ControlHandler",
-      "controls": [{
-          "ControlHandler:_controls_key": "create-login-ii",
-          "ControlHandler:_controls_value": { "@id": "urn:my-simple-register:default:CreateLoginPasswordRoute" }
-      }]
+      "controls": [
+        {
+          "ControlHandler:_controls_key": "register-with-pod",
+          "ControlHandler:_controls_value": {
+            "@id": "urn:my-simple-register:default:CreateLoginPasswordRoute"
+          }
+        }
+      ]
     },
-
     {
       "@id": "urn:solid-server:default:HtmlViewHandler",
       "@type": "HtmlViewHandler",
-      "templates": [{
-        "@id": "urn:my-simple-register:default:CreateLoginPasswordHtml",
-        "@type": "HtmlViewEntry",
-        "filePath": "./templates/identity/password/create-login.html.ejs",
-        "route": { "@id": "urn:my-simple-register:default:CreateLoginPasswordRoute" }
-      }]
+      "templates": [
+        {
+          "@id": "urn:my-simple-register:default:CreateLoginPasswordHtml",
+          "@type": "HtmlViewEntry",
+          "filePath": "./templates/identity/password/create-login.html.ejs",
+          "route": {
+            "@id": "urn:my-simple-register:default:CreateLoginPasswordRoute"
+          }
+        }
+      ]
     },
     {
-      "ControlHandler:_controls_value": {
-        "@id": "urn:solid-server:default:PasswordHtmlControlHandler",
-        "@type": "ControlHandler",
-        "controls": [{
-          "ControlHandler:_controls_key": "create-login-ii",
-          "ControlHandler:_controls_value": { "@id": "urn:my-simple-register:default:CreateLoginPasswordRoute" }
-        }]
-      }
+      "@id": "urn:solid-server:default:PasswordHtmlControlHandler",
+      "@type": "ControlHandler",
+      "controls": [
+        {
+          "ControlHandler:_controls_key": "register",
+          "ControlHandler:_controls_value": {
+            "@id": "urn:my-simple-register:default:CreateLoginPasswordRoute"
+          }
+        }
+      ]
     }
   ]
 }

@@ -1,9 +1,9 @@
-<h1>Sign Up</h1>
+<h1>Register</h1>
 <form method="post" id="mainForm">
   <p class="error" id="error"></p>
 
   <fieldset>
-    <p>Create an Accout II</p>
+    <p>Create an Accout</p>
     <ol>
       <li>
         <label for="email">Email:</label>
@@ -29,7 +29,8 @@
 
   <ul class="actions">
     <li><button type="submit" name="submit">Sign Up</button></li>
-    <li><button class="hidden" type="button" id="cancel">Cancel</button></li>
+    <li><button type="button" id="account-link">Back</button></li>
+
   </ul>
 </form>
 
@@ -39,22 +40,13 @@
     
     let controls = await fetchControls('<%= idpIndex %>');
 
-    // Only show the cancel button if there is an OIDC interaction
-    setVisibility('cancel', <%= authenticating %>);
-    getElements('cancel').cancel.addEventListener('click', async() => {
-      const res = await fetch(controls.oidc.cancel, { method: 'POST' });
-      location.href = (await res.json()).location;
-    });
+    setRedirectClick('account-link', controls.html.account.account);
+
 
     addPostListener(async(event) => {
-      const json = await postJsonForm(controls.password["create-login"]);
-      // In case there was no forced OIDC redirect, just go to the main account page
-      if (json) {
-        // Now with cookie
-        controls = await fetchControls('<%= idpIndex %>');
-        location.href = controls.html.account.account;
-      
-      }
+      const json = await postJsonForm(controls.password["register-with-pod"]);
+      location.href = controls.html.account.account;
+
     })
   })();
 </script>
