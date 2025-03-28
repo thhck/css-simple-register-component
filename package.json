@@ -16,7 +16,7 @@
     "https://linkedsoftwaredependencies.org/bundles/npm/css-simple-register-component/^7.0.0/dist/": "dist/"
   },
   "scripts": {
-    "start": "community-solid-server -c @css:config/default.json simple-register-partial.json  -m .",
+    "start": "community-solid-server -c simple-register-partial.json  @css:config/default.json -m .",
     "start-alt": "community-solid-server -c simple-register-file.json -f .data -m .",
     "build": "npm run build:ts && npm run build:components",
     "build:components": "componentsjs-generator -s src -c dist/components -i .componentsignore -r simple-register",

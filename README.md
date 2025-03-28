@@ -8,9 +8,7 @@ A component that adds a simplified registration form to the [Community Solid Ser
 - Automatic pod and WebID creation
 - Seamless integration with CSS
 
-## Important Note
 
-This component must be imported **after** the core CSS components in your server configuration. This is because it depends on several CSS components and needs them to be initialized first.
 
 ## local test run
 

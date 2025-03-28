@@ -80,13 +80,20 @@
         }
       ]
     },
-    {
-      "@id": "urn:solid-server:default:PasswordHtmlControlHandler",
-      "@type": "ControlHandler",
-      "controls": [
+  {
+      "@id": "urn:solid-server:default:PasswordHtmlControlHandlerOverride",
+      "@type": "Override",
+      "overrideInstance": {
+        "@id": "urn:solid-server:default:PasswordHtmlControlHandler"
+      },
+      "overrideSteps": [
         {
-          "ControlHandler:_controls_key": "register",
-          "ControlHandler:_controls_value": {
+          "@type": "OverrideMapEntry",
+          "overrideParameter": {
+            "@id": "ControlHandler:_controls"
+          },
+          "overrideTarget": "register",
+          "overrideValue": {
             "@id": "urn:my-simple-register:default:CreateLoginPasswordRoute"
           }
         }
